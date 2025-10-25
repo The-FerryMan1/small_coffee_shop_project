@@ -9,11 +9,13 @@ import { eq } from "drizzle-orm";
 
 const factory = createFactory()
 const database = db
-export const registerService = factory.createHandlers(validator("json", (value, c)=>{
+export const registerService = factory.createHandlers(
+    validator("json", (value, c)=>{
     const parsed = registerValidator.safeParse(value)
     if (!parsed.success) return c.json({"error": z.treeifyError(parsed.error)}, 400)
     return parsed.data
-}), async(c:any)=>{
+}), 
+async(c:any)=>{
     try {
         const {first_name, last_name, middle_name, email, password } = c.req.valid("json")
         const found = await database.$count(usersTable, eq(usersTable.email, email))
