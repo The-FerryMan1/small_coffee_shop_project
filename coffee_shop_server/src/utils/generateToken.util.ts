@@ -14,12 +14,12 @@ export const generateTokens = async(c:Context, credentials:{email: string, id: n
             id: credentials.id,
             email: credentials.email,
             role: credentials.role,
-            exp: Math.floor(Date.now() / 100) + access_token_expiry 
+            exp: Math.floor(Date.now() / 1000) + access_token_expiry 
         }
 
         const refreshToken = {
             email: credentials.email,
-            exp: Math.floor(Date.now() / 100) + refresh_token_expiry
+            exp: Math.floor(Date.now() / 1000) + refresh_token_expiry
         }
 
         const signedAccessToken = await sign(accessToken, process.env.ACCESS_SECRET_TOKEN as string) 
@@ -28,7 +28,6 @@ export const generateTokens = async(c:Context, credentials:{email: string, id: n
         const commonCookieOption = {
             path: '/',
             secure: process.env.STATUS as string === "dev",
-            domain: process.env.DOMAIN as string,
             httpOnly: true,
             sameSite: "Lax" as const,
         }
