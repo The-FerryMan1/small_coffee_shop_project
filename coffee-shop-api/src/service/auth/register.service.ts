@@ -4,6 +4,7 @@ import { db } from "../../database"
 import { CredentialsTable, usersTable } from "../../database/schema"
 import { eq } from "drizzle-orm"
 import {HTTPException} from "hono/http-exception"
+import { Context } from "hono"
 type FormType = z.infer<typeof registerValidator>
 
 export const registerService = async(form:FormType)=>{
@@ -28,9 +29,13 @@ export const registerService = async(form:FormType)=>{
             })
         })
         
-        return {"message": "Register Completed"}
+        return {"message": "Account registration completed"}
     } catch (error) {
         console.log(error)
+        if(error instanceof HTTPException){
+            throw new HTTPException(error.status, {message: error.message})
+        }
+
         throw new HTTPException(500, {message: "Unable to create a new account"})
     }
 }
