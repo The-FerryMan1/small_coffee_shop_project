@@ -1,12 +1,13 @@
 <script setup lang="tsx">
 definePageMeta({
-    title: "Home"
+    title: "dashboard",
+    layout: "authenticated"
 })
 
 </script>
 
 <template>
   <div>
-    <h1>Welcome to the homepage</h1>
+    <h1>Welcome to the dashboard</h1>
   </div>
 </template>
