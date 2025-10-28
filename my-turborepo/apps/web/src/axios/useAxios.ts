@@ -1,0 +1,7 @@
+import axios from "axios";
+
+
+export const useAxios = axios.create({
+    baseURL: "http://localhost:3000/",
+    withCredentials: true
+})
