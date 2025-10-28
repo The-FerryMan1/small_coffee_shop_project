@@ -9,17 +9,14 @@ import { HTTPException } from "hono/http-exception";
 export const refreshTokenService = async(c:Context, refresh_token:string)=>{
     try {
         const validToken = await verify(refresh_token, process.env.REFRESH_SECRET as string)
-        const { id } = validToken
+        const { sub, role } = validToken
 
-        const [loggedUser] = await db.select({id: usersTable.id, email: usersTable.email, role:CredentialsTable.role}).from(usersTable).innerJoin(CredentialsTable, eq(CredentialsTable.userID, usersTable.id)).where(eq(usersTable.id, id as number))
-        if(!loggedUser.role) throw new HTTPException(401, {message: "User role cannot be determined"})
-
+        const roles = role as "customer" | "manager"|"admin"
         const success = await generateToken(c, {
-            id: loggedUser.id,
-            email: loggedUser.email,
-            role: loggedUser.role
+            id: Number(sub),
+            role: roles
         })
-         if(!success) throw new HTTPException(500, {message: "Unexpected error occured during proccess, unable to create token"})
+         if(!success) throw new HTTPException(500, {message: "Unexpected error occured during proccess, unable to create new token"})
 
             return {"message": "Token has been refreshed"}
     } catch (error) {
@@ -39,6 +36,7 @@ export const refreshTokenService = async(c:Context, refresh_token:string)=>{
             }
            
         }
+        console.log(error)
          throw new HTTPException(500, {message: "Unable to refresh token"})
     }
 }

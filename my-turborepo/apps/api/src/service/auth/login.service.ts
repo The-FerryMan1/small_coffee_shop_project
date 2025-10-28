@@ -13,7 +13,6 @@ export const loginService = async(c: Context, credentials: CredentialsType )=>{
     try {
         const [foundUser] = await db.select({
             id: usersTable.id,
-            email: usersTable.email,
             hashedPassword: CredentialsTable.hashedPassword,
             role: CredentialsTable.role
         })
@@ -29,11 +28,11 @@ export const loginService = async(c: Context, credentials: CredentialsType )=>{
         if(!matchedPassword) throw new HTTPException(401, {message: "Invalid email or password"})
         
         //generate token
-        const {id, email, role} = foundUser
+        const {id, role} = foundUser
 
         if(!role) throw new HTTPException(401, {message: "User role cannot be determined"})
         
-        const success = await generateToken(c, {id, email, role})
+        const success = await generateToken(c, {id, role})
 
         if(!success) throw new HTTPException(500, {message: "Unexpected error occured during proccess, unable to create token"})
         

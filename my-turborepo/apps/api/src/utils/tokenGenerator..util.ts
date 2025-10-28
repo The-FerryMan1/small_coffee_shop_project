@@ -1,27 +1,31 @@
 import { Context } from "hono";
 import { sign } from "hono/jwt"
 import { setCookie } from "hono/cookie"
+
+
+type roles = "customer"|"manager"|"admin"
 export const generateToken = async(c: Context, info: {
     id: number,
-    email: string,
-    role: "customer"|"manager"|"admin"
+    role: roles
 })=>{
-    const ACCESS_TOKEN_EXPIRY = Math.floor(Date.now() / 1000) + 60 * 15
-    const REFRESH_TOKEN_EXPIRY = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7
+
+    const now =  Math.floor(Date.now() / 1000)
+    const ACCESS_TOKEN_EXPIRY =  now + 60 
+    const REFRESH_TOKEN_EXPIRY = now + 60 * 60 * 24 * 7
 
     try {
-        const {email, id, role} = info
+        const {id, role} = info
 
         const accces_token_payload = {
-            id,
-            email,
+            sub:id,
+            iat: now,  
             role,
             exp: ACCESS_TOKEN_EXPIRY
         }
 
         const refresh_token_payload = {
-            id,
-            email,
+            sub:id,
+            iat: now,
             role,
             exp: REFRESH_TOKEN_EXPIRY
         }

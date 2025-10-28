@@ -7,5 +7,5 @@ const authRoute = new Hono()
 
 authRoute.post("/register",  ...registerHadlder)
 authRoute.post("/login",  ...loginHadlder)
-authRoute.get("/refresh", ...refreshHandler)
+authRoute.post("/refresh", ...refreshHandler)
 export default authRoute
