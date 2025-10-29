@@ -26,6 +26,27 @@ const routes:RouteRecordRaw[] = [
         title: "Login"
       }
     },
+    {
+      path: "/coffee",
+      name: "coffee",
+      component: ()=>import("@/pages/coffee.vue"),
+      meta: {
+        title: "Coffee"
+      }
+    },
+
+
+
+
+    {
+      path: "/:pathMatch(.*)*",
+      name: "notfound",
+      component: ()=>import("@/error.vue"),
+      meta:{
+        title: "404"
+      }
+
+    }
 ]
 
 const router = createRouter({

@@ -1,3 +1,3 @@
 <template>
-    <h1>Coffee shop </h1>
+    <h1 class="font-bold text-2xl">Coffee shop </h1>
 </template>

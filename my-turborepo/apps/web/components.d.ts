@@ -11,10 +11,19 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Footer: typeof import('./src/components/Footer.vue')['default']
     Logo: typeof import('./src/components/logo.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UApp: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/App.vue')['default']
+    UContainer: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Container.vue')['default']
+    UError: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Error.vue')['default']
+    UFooter: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Footer.vue')['default']
+    UHeader: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
+    ULink: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/vue/components/Link.vue')['default']
+    UMain: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Main.vue')['default']
+    UNavigationMenu: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/NavigationMenu.vue')['default']
+    UPageHero: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageHero.vue')['default']
   }
 }

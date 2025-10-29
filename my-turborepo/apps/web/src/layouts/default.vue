@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import Logo from '@/components/logo.vue';
+import Foot from '@/components/Footer.vue';
 import Nabvar from '@/components/Navbar.vue';
 
 
 </script>
 
 <template>
-     <Nabvar/>
-    <main>
-        <slot></slot>
-         
-    </main>
+    <Nabvar />
+    <UMain>
+        <UContainer>
+             <slot></slot>
+        </UContainer>
+    </UMain>
+    <Foot/>
+
 </template>
