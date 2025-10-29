@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Features from '@/components/Features.vue';
+import Plans from '@/components/Plans.vue';
 import Default from '@/layouts/default.vue';
 import { ref } from 'vue';
 
@@ -24,5 +26,7 @@ const links = ref([
 <template>
     <Default>
         <UPageHero :title :description :links/>
+        <Features/>
+        <Plans/>
     </Default>
 </template>

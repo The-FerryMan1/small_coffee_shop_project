@@ -9,7 +9,7 @@ const app = new Hono().basePath("/api/v1/")
 
 app.use(logger())
 
-app.use(cors({origin: ['http://localhost:3001'], credentials: true}))
+app.use(cors({origin: ['http://localhost:5173'], credentials: true}))
 
 
 

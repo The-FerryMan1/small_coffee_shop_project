@@ -11,7 +11,13 @@ export default defineConfig({
   plugins: [
     vue(),
     tailwindcss(),
-    ui(),
+    ui({
+      ui:{
+        colors:{
+          primary: "sky"
+        }
+      }
+    }),
     vueDevTools(),
   ],
 

@@ -11,12 +11,16 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CTA: typeof import('./src/components/CTA.vue')['default']
+    Features: typeof import('./src/components/Features.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     Logo: typeof import('./src/components/logo.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
+    Plans: typeof import('./src/components/Plans.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UApp: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/App.vue')['default']
+    UAuthForm: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/AuthForm.vue')['default']
     UContainer: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Container.vue')['default']
     UError: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Error.vue')['default']
     UFooter: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Footer.vue')['default']
@@ -24,6 +28,11 @@ declare module 'vue' {
     ULink: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/vue/components/Link.vue')['default']
     UMain: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Main.vue')['default']
     UNavigationMenu: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/NavigationMenu.vue')['default']
+    UPageCard: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageCard.vue')['default']
+    UPageFeature: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageFeature.vue')['default']
+    UPageGrid: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageGrid.vue')['default']
     UPageHero: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageHero.vue')['default']
+    UPageSection: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageSection.vue')['default']
+    UPricingPlans: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PricingPlans.vue')['default']
   }
 }

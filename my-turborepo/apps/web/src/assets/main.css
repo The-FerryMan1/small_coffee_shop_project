@@ -1,2 +1,7 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+
+@theme static {
+    --color-gold-500: #FFD700
+}
