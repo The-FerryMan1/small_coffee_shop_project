@@ -34,6 +34,14 @@ const routes:RouteRecordRaw[] = [
         title: "Coffee"
       }
     },
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      component: ()=>import("@/pages/auth/dashboard.vue"),
+      meta: {
+        title: "Dashboard"
+      }
+    },
 
 
 

@@ -3,7 +3,12 @@ import z from 'zod';
 import Default from '@/layouts/default.vue';
 import type { FormSubmitEvent, AuthFormField } from "@nuxt/ui"
 import { useAxios } from '@/axios/useAxios';
+import { ref } from 'vue';
+import { AxiosError } from 'axios';
+import { useRouter } from 'vue-router';
 
+
+const router = useRouter()
 const fields: AuthFormField[] = [
     {
         name: 'email',
@@ -27,6 +32,9 @@ const fields: AuthFormField[] = [
 ]
 
 
+
+const loading = ref<boolean>(false)
+const errorMessage = ref<string|null>(null)
 const schema = z.object({
     email: z.email('Invalid email'),
     password: z.string('Password is required').min(8, 'Must be at least 8 characters')
@@ -35,31 +43,57 @@ const schema = z.object({
 type Schema = z.infer<typeof schema>
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
-    
+
     try {
-        const {data, status} = await useAxios.post("/login", payload.data, {
+        loading.value = true
+        const { data, status } = await useAxios.post("/login", payload.data, {
             headers: {
                 "Content-Type": "application/json"
             }
         })
-
-        console.log(data)
+        if(status !== 200) throw new Error("Authentication failed")
+        router.replace({name: "dashboard"})
+        return
     } catch (error) {
+        if(error instanceof AxiosError){
+            console.log(error.response?.data?.error)
+            errorMessage.value = error.response?.data?.error
+            return
+        }
         console.log(error)
+
+    }finally{
+        loading.value = false
     }
 }
 </script>
 
 <template>
     <Default>
-        <UPageSection headline="Authentication" title="Welcome back" description="We are happy to see you again!">
-            <div class="flex flex-col items-center justify-center gap-4 p-4">
+        <UPageSection orientation="horizontal" headline="Authentication" title="Welcome back"
+            description="We are happy to see you again!">
+            <div class="flex flex-col justify-center items-center">
                 <UPageCard class="w-full max-w-md">
-                    <UAuthForm :schema="schema" title="Login"
-                        description="Enter your credentials to access your account." icon="i-lucide-user"
-                        :fields="fields" @submit="onSubmit" />
-                </UPageCard>
+                <UAuthForm :schema="schema" title="Login" description="Enter your credentials to access your account."
+                    icon="i-lucide-user" :fields="fields" @submit="onSubmit" :submit="{loading}">
+                    <template #validation>
+                        <UAlert v-if="errorMessage" color="error" icon="i-lucide-info" :title="errorMessage" />
+                    </template>
+                    <template #footer>
+                        <div>
+                            By signing in, you agree to our <ULink to="#" class="text-primary font-medium">Terms of Service
+                        </ULink>.
+                        </div>
+                        <div class="mt-2">
+                            <ULink class="underline" to="/register">Don't have an account?</ULink>
+                        </div>
+                        
+                    </template>
+                </UAuthForm>
+
+            </UPageCard>
             </div>
+            
         </UPageSection>
     </Default>
 </template>

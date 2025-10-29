@@ -5,6 +5,7 @@ import Logo from './logo.vue';
 import { computed } from "vue";
 
 
+
 const route = useRoute()
 const items = computed<NavigationMenuItem[]>(()=>[
     {
@@ -36,7 +37,7 @@ const items = computed<NavigationMenuItem[]>(()=>[
     <UNavigationMenu :items="items"/>
     
      <template #right>
-       
+        <UColorModeSwitch />
     </template>
 
     <template #body> 
