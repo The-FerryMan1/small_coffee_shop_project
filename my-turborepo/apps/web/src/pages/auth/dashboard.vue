@@ -4,15 +4,15 @@ import Authenticated from '@/layouts/authenticated.vue';
 import { useAuthStore } from '@/stores/auth';
 
 
-const {getUser, user} = useAuthStore()
+const auth = useAuthStore()
 const test = async()=>{
-    await getUser()
+    await auth.getUser()
 }
 </script>
 
 <template>
     <Authenticated>
         <div>hello dashboaor</div>
-        <UButton @click="test">{{ user??"get user" }}</UButton>
+        <UButton @click="test">{{ auth.user??"get user" }}</UButton>
     </Authenticated>
 </template>

@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/auth'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 
@@ -39,7 +40,8 @@ const routes:RouteRecordRaw[] = [
       name: "dashboard",
       component: ()=>import("@/pages/auth/dashboard.vue"),
       meta: {
-        title: "Dashboard"
+        title: "Dashboard",
+        requiresAuth: true
       }
     },
 
@@ -64,6 +66,29 @@ const router = createRouter({
 
 router.afterEach((from, to)=>{
   document.title = `Coffeeshhh - ${from.meta.title}`
+})
+
+router.beforeEach(async(to,from)=>{
+  const auth = useAuthStore()
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  
+  if(!auth.isAuthenticated){
+    try {
+      await auth.getUser()
+    } catch (error) {
+      return {name: "login"}
+    }
+    
+  }
+
+  if(requiresAuth && !auth.isAuthenticated){
+     return {name: "login"}
+  }
+
+  if(to.name === "login" || to.name === "register" && auth.isAuthenticated){
+    return {name: "dashboard"}
+  }
+
 })
 
 export default router
