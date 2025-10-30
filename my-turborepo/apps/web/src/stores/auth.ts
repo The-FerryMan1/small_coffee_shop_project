@@ -11,17 +11,19 @@ export const useAuthStore = defineStore("auth", () => {
     const router = useRouter()
 
 
-    const getUser = async()=>{
+    const getUser = async () => {
         try {
-           const {data, status} = await useAxios.get("/auth/test", {
-                 headers: {
+            const { data, status } = await useAxios.get("/auth/test", {
+                headers: {
                     "Content-Type": "application/json"
                 }
             })
-             if (status !== 200) throw new Error("Unauthorized")
+            if (status !== 200) throw new Error("Unauthorized")
             isAuthenticated.value = true
             user.value = data
         } catch (error) {
+            isAuthenticated.value = false
+            user.value = null
             if (error instanceof AxiosError) {
                 console.log(error.response?.data?.error)
                 throw new Error(error.response?.data?.error)
@@ -74,6 +76,24 @@ export const useAuthStore = defineStore("auth", () => {
 
     }
 
+    const logout = async () => {
+        try {
+            await useAxios.post("/auth/logout", {})
+            router.replace({name:"login"})
+        } catch (error) {
+
+            if (error instanceof AxiosError) {
+                console.log(error.response?.data?.error)
+                throw new Error(error.response?.data?.error)
+            }
+            console.log(error)
+            throw error
+        } finally {
+            isAuthenticated.value = false
+            user.value = null
+        }
+    }
+
 
 
     return {
@@ -81,6 +101,7 @@ export const useAuthStore = defineStore("auth", () => {
         user,
         login,
         register,
-        getUser
+        getUser,
+        logout
     }
 })

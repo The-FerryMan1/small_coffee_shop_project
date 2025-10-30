@@ -24,6 +24,7 @@ const links = ref([
 </script>
 
 <template>
+    
     <Default>
         <UPageHero :title :description :links/>
         <Features/>

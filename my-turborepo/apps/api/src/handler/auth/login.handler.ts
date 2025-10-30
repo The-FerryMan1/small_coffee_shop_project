@@ -7,7 +7,7 @@ import { loginService } from "../../service/auth/login.service"
 
 const factory = createFactory()
 
-export const loginHadlder = factory.createHandlers(
+export const loginHandder = factory.createHandlers(
     zValidator("json", loginValidator),
     async(c)=>{
         try {

@@ -76,7 +76,7 @@ router.beforeEach(async(to,from)=>{
     try {
       await auth.getUser()
     } catch (error) {
-      return {name: "login"}
+      return 
     }
     
   }
