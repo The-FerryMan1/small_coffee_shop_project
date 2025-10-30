@@ -31,10 +31,18 @@ const plans = ref([
     },
    
 ])
+
+const links = ref([
+   {
+    label: 'Check our coffee',
+    to: '/coffee',
+    icon: 'i-lucide-coffee',
+  },
+])
 </script>
 
 <template>
-    <UPageSection headline="Top ordered coffee" title="Choose your favorite coffee" description="Here is the top ordered coffee in our shop">
+    <UPageSection :links  headline="Top ordered coffee" title="Choose your favorite coffee" description="Here is the top ordered coffee in our shop">
          <UPricingPlans :plans />
     </UPageSection>
    

@@ -9,7 +9,7 @@ export const generateToken = async(c: Context, info: {
     role: roles
 })=>{
 
-    const now =  Math.floor(Date.now() / 1000)
+    const now = Math.floor(Date.now() / 1000)
     const ACCESS_TOKEN_EXPIRY =  now + 60 
     const REFRESH_TOKEN_EXPIRY = now + 60 * 60 * 24 * 7
 
@@ -42,12 +42,14 @@ export const generateToken = async(c: Context, info: {
 
         setCookie(c, "access_token", signedAccessToken, {
             ...commonCookieOption,
-            maxAge: new Date(ACCESS_TOKEN_EXPIRY).getMilliseconds()
+            maxAge: 1000,
+            expires: new Date(Date.now() + 60 * 60 * 24 * 7) 
         })
 
          setCookie(c, "refresh_token", signedRefreshToken, {
             ...commonCookieOption,
-            maxAge: new Date(REFRESH_TOKEN_EXPIRY).getMilliseconds()
+            maxAge: 1000,
+            expires: new Date(Date.now() + 60 * 60 * 24 * 7) 
         })
         return true
     } catch (error) {
