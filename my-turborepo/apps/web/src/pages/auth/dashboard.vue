@@ -1,18 +1,18 @@
 <script setup lang="ts">
-
-import Authenticated from '@/layouts/authenticated.vue';
 import { useAuthStore } from '@/stores/auth';
 
 
 const auth = useAuthStore()
-const test = async()=>{
+const test = async () => {
     await auth.getUser()
 }
 </script>
 
 <template>
-    <Authenticated>
+
+    <UDashboardPanel class="p-7">
         <div>hello dashboaor</div>
-        <UButton @click="test">{{ auth.user??"get user" }}</UButton>
-    </Authenticated>
+        <UButton @click="test">{{ auth.user ?? "get user" }}</UButton>
+    </UDashboardPanel>
+
 </template>

@@ -65,7 +65,7 @@ const navLink = computed<NavigationMenuItem[]>(() => auth.isAuthenticated ? auth
         <UNavigationMenu :items="navLink" />
        
         <template #right>
-            <UColorModeSwitch />
+           <UColorModeButton />
         </template>
 
         <template #body>
