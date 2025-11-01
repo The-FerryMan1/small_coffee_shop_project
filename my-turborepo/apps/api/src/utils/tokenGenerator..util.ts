@@ -10,7 +10,7 @@ export const generateToken = async(c: Context, info: {
 })=>{
 
     const now = Math.floor(Date.now() / 1000)
-    const ACCESS_TOKEN_EXPIRY =  now + 60 
+    const ACCESS_TOKEN_EXPIRY =  now + 60 * 15
     const REFRESH_TOKEN_EXPIRY = now + 60 * 60 * 24 * 7
 
     try {

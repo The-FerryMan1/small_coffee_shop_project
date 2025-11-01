@@ -8,26 +8,19 @@ const plans = ref([
         description: "An espresso shot diluted with hot water.",
         badge: "Most popular",
         price: "₱60.00",
-        button:{
-            label: "Order now"
-        },
         highlight: true
     },
     {
         title: "Espresso",
         description: "A concentrated coffee brewed by forcing hot water through finely-ground beans.",
         price: "₱50.00",
-        button:{
-            label: "Order now"
-        }
+       
     },
       {
         title: "Latte",
         description: "Espresso with a large amount of steamed milk and a small layer of foam.",
         price: "₱55.00",
-        button:{
-            label: "Order now"
-        }
+       
     },
    
 ])

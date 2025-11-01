@@ -4,16 +4,26 @@ import { defineStore } from "pinia"
 import { ref } from "vue"
 import { useRouter } from "vue-router"
 
+type User = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    middleName: string,
+    email: string, 
+    createdAt: string,
+    updatedAt:string | null,
+}
+
 export const useAuthStore = defineStore("auth", () => {
     const isAuthenticated = ref<boolean>(false)
-    const user = ref<{} | null>(null)
+    const user = ref<User | null>(null)
 
     const router = useRouter()
 
 
     const getUser = async () => {
         try {
-            const { data, status } = await useAxios.get("/auth/test", {
+            const { data, status } = await useAxios.get("/auth/user", {
                 headers: {
                     "Content-Type": "application/json"
                 }
