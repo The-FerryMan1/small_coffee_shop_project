@@ -6,11 +6,13 @@ import {cors} from 'hono/cors'
 import userRoute from './routes/user.route'
 import { secureHeaders } from 'hono/secure-headers'
 import { csrf } from 'hono/csrf'
+import productRoute from './routes/product.route'
 
 
 interface Variable {
   JwtVariables: JwtVariables,
-  sub: number
+  sub: number,
+  role: string
 }
 const app = new Hono<{Variables: Variable }>().basePath("/api/v1/")
 
@@ -28,6 +30,7 @@ app.use("/auth/*", jwt({
 )
 app.route('/', authRoute)
 app.route("/", userRoute)
+app.route('/', productRoute)
 
 app.get("/auth/test", (c)=>{
   const jwt = c.get('jwtPayload')
