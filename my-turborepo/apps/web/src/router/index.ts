@@ -60,6 +60,73 @@ const routes: RouteRecordRaw[] = [
           requiresAuth: true
         }
       },
+
+
+
+
+
+
+
+
+      {
+        path: "/manager",
+        name: "manager",
+        component: () => import("@/pages/manager/manager.vue"),
+        meta: {
+          title: "Manager",
+          manager: true,
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/customer",
+        name: "customer",
+        component: () => import("@/pages/manager/customer.vue"),
+        meta: {
+          title: "Customer",
+          manager: true,
+          requiresAuth: true
+        }
+      },
+       {
+        path: "/coffees",
+        name: "coffees",
+        component: () => import("@/pages/manager/coffees.vue"),
+        meta: {
+          title: "List of Coffee",
+          manager: true,
+          requiresAuth: true
+        }
+      },
+        {
+        path: "/orders",
+        name: "orders",
+        component: () => import("@/pages/manager/orders.vue"),
+        meta: {
+          title: "Customers order",
+          manager: true,
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/stocks",
+        name: "stocks",
+        component: () => import("@/pages/manager/stocks.vue"),
+        meta: {
+          title: "Stocks",
+          manager: true,
+          requiresAuth: true
+        }
+      },
+
+
+
+
+
+
+
+
+
     ]
   },
   {
@@ -85,6 +152,7 @@ router.afterEach((from, to) => {
 router.beforeEach(async (to, from) => {
   const auth = useAuthStore()
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const requiresManager = to.matched.some(record => record.meta.manager)
 
   if (!auth.isAuthenticated) {
     try {
@@ -99,7 +167,13 @@ router.beforeEach(async (to, from) => {
     return { name: "login" }
   }
 
+
   if (to.name === "login" || to.name === "register" && auth.isAuthenticated) {
+    return { name: "dashboard" }
+  }
+
+
+  if (auth.user?.role !== "manager" && requiresManager) {
     return { name: "dashboard" }
   }
 

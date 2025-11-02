@@ -8,10 +8,9 @@ type User = {
     id: number,
     firstName: string,
     lastName: string,
-    middleName: string,
     email: string, 
-    createdAt: string,
-    updatedAt:string | null,
+    role: string
+   
 }
 
 export const useAuthStore = defineStore("auth", () => {
