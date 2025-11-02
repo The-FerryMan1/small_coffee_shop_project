@@ -22,9 +22,11 @@ export const CredentialsTable = pgTable('credentials', {
     updatedAt: timestamp("updated_at"),
 })
 
-export const inventoryTable = pgTable("invetory", {
+export const productTable = pgTable("product", {
     id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
     name: varchar("name", {length: 255}).notNull(),
+    category: varchar("category", {length: 50}).default("Uncategorized"),
+    description: varchar("description", {length:255}).default("No description"),
     stock: integer("stock").notNull().default(0),
     version: integer("version").notNull().default(1),
     price: integer("price").notNull(),
@@ -32,12 +34,12 @@ export const inventoryTable = pgTable("invetory", {
 
 export const orderTable = pgTable("orders", {
      id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-     inventoryID: integer("inventory_id").references(()=>inventoryTable.id),
+     productID: integer("inventory_id").references(()=>productTable.id),
      quantity: integer("quantity").notNull(),
      totalPrice: integer("total_price").notNull(),
      status: text({enum: ["pending", "completed", "failed"]}).default("pending"),
      createdAt: timestamp("created_at").defaultNow(),
 })
 
-export type InventoryItem = typeof inventoryTable.$inferSelect;
+export type ProductItem = typeof productTable.$inferSelect;
 export type NewOrder = typeof orderTable.$inferInsert;
