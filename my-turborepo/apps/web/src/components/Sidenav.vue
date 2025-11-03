@@ -27,10 +27,10 @@ const items = computed<NavigationMenuItem[][]>(() => [
         {
             label: "Settings",
             icon: "i-lucide-settings",
-            children:[
+            children: [
                 {
                     label: "Logout",
-                    onSelect:()=>{
+                    onSelect: () => {
                         modal.open()
                     }
                 }
@@ -54,32 +54,27 @@ const managerItem = computed<NavigationMenuItem[][]>(() => [
             to: { name: "customer" },
             active: route.path.startsWith("/customer")
         },
-         {
-            label: "List of Coffee",
-            icon: "i-lucide-coffee",
-            to: { name: "coffees" },
-            active: route.path.startsWith("/coffees")
-        },
-         {
-            label: "orders",
+        {
+            label: "Orders",
             icon: "i-lucide-list-ordered",
             to: { name: "orders" },
             active: route.path.startsWith("/orders")
         },
         {
-            label: "stocks",
-            icon: "i-lucide-arrow-up-narrow-wide",
+            label: "Invetory",
+            icon: "i-lucide-coffee",
             to: { name: "stocks" },
             active: route.path.startsWith("/stocks")
         },
-        
+
+
         {
             label: "Settings",
             icon: "i-lucide-settings",
-            children:[
+            children: [
                 {
                     label: "Logout",
-                    onSelect:()=>{
+                    onSelect: () => {
                         modal.open()
                     }
                 }
@@ -88,7 +83,7 @@ const managerItem = computed<NavigationMenuItem[][]>(() => [
     ],
 ])
 
-const selectedItems = computed(()=> auth.user?.role === "manager"? managerItem.value:items.value)
+const selectedItems = computed(() => auth.user?.role === "manager" ? managerItem.value : items.value)
 </script>
 
 <template>

@@ -25,7 +25,10 @@ const auth = useAuthStore()
                         
                     </template>
                 </UDashboardNavbar>
-                <RouterView />
+            </template>
+
+            <template #body>
+                <RouterView/>
             </template>
         </UDashboardPanel>
     </UDashboardGroup>

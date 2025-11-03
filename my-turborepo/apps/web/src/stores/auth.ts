@@ -51,7 +51,7 @@ export const useAuthStore = defineStore("auth", () => {
             })
             if (status !== 200) throw new Error("Authentication failed")
             await getUser()
-            router.replace({ name: "dashboard" })
+            router.replace({ path: "/" })
             return
         } catch (error) {
             if (error instanceof AxiosError) {

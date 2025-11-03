@@ -36,8 +36,11 @@ declare module 'vue' {
     UDashboardSidebarCollapse: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/DashboardSidebarCollapse.vue')['default']
     UError: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Error.vue')['default']
     UFooter: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Footer.vue')['default']
+    UForm: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Form.vue')['default']
+    UFormField: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/FormField.vue')['default']
     UHeader: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
     UIcon: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/vue/components/Icon.vue')['default']
+    UInput: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Input.vue')['default']
     UKbd: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Kbd.vue')['default']
     ULink: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/vue/components/Link.vue')['default']
     UMain: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Main.vue')['default']
@@ -50,6 +53,7 @@ declare module 'vue' {
     UPageLogos: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageLogos.vue')['default']
     UPageSection: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PageSection.vue')['default']
     UPricingPlans: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/PricingPlans.vue')['default']
+    UTable: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/Table.vue')['default']
     UUser: typeof import('./../../node_modules/.bun/@nuxt+ui@4.1.0+668bdfb90e5f6941/node_modules/@nuxt/ui/dist/runtime/components/User.vue')['default']
   }
 }

@@ -1,7 +1,7 @@
 import { useAuthStore } from '@/stores/auth'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
-
+// --- 1. Route Definitions ---
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
@@ -16,7 +16,8 @@ const routes: RouteRecordRaw[] = [
     name: "register",
     component: () => import("@/pages/register.vue"),
     meta: {
-      title: "Register"
+      title: "Register",
+      guest: true // Guest-only route
     }
   },
   {
@@ -24,7 +25,8 @@ const routes: RouteRecordRaw[] = [
     name: "login",
     component: () => import("@/pages/login.vue"),
     meta: {
-      title: "Login"
+      title: "Login",
+       guest: true // Guest-only route
     }
   },
   {
@@ -35,11 +37,12 @@ const routes: RouteRecordRaw[] = [
       title: "Coffee"
     }
   },
+  // Authenticated Layout (Parent Route)
   {
-    path: "/dashboard",
+    path: "/",
     component: () => import("@/layouts/authenticated.vue"),
     meta: {
-      requiresAuth: true
+      requiresAuth: true // All children inherit this
     },
     children: [
       {
@@ -48,7 +51,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/pages/auth/dashboard.vue"),
         meta: {
           title: "Dashboard",
-          requiresAuth: true
         }
       },
       {
@@ -57,25 +59,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/pages/auth/order.vue"),
         meta: {
           title: "Order",
-          requiresAuth: true
         }
       },
-
-
-
-
-
-
-
-
+      // Manager Routes
       {
         path: "/manager",
         name: "manager",
         component: () => import("@/pages/manager/manager.vue"),
         meta: {
           title: "Manager",
-          manager: true,
-          requiresAuth: true
+          manager: true, // Requires manager role
         }
       },
       {
@@ -84,28 +77,16 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/pages/manager/customer.vue"),
         meta: {
           title: "Customer",
-          manager: true,
-          requiresAuth: true
+          manager: true, // Requires manager role
         }
       },
-       {
-        path: "/coffees",
-        name: "coffees",
-        component: () => import("@/pages/manager/coffees.vue"),
-        meta: {
-          title: "List of Coffee",
-          manager: true,
-          requiresAuth: true
-        }
-      },
-        {
+      {
         path: "/orders",
         name: "orders",
         component: () => import("@/pages/manager/orders.vue"),
         meta: {
           title: "Customers order",
-          manager: true,
-          requiresAuth: true
+          manager: true, // Requires manager role
         }
       },
       {
@@ -114,21 +95,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import("@/pages/manager/stocks.vue"),
         meta: {
           title: "Stocks",
-          manager: true,
-          requiresAuth: true
+          manager: true, // Requires manager role
         }
       },
-
-
-
-
-
-
-
-
-
     ]
   },
+  // 404 Catch-all
   {
     path: "/:pathMatch(.*)*",
     name: "notfound",
@@ -136,7 +108,6 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: "404"
     }
-
   }
 ]
 
@@ -145,38 +116,57 @@ const router = createRouter({
   routes
 })
 
-router.afterEach((from, to) => {
-  document.title = `Coffeeshhh - ${from.meta.title}`
-})
-
-router.beforeEach(async (to, from) => {
+// --- 2. Global Navigation Guard (beforeEach) ---
+router.beforeEach((to, from) => {
+  // Use the Pinia store instance
   const auth = useAuthStore()
+
+  // Check if *any* matched record (including the parent layout) has these meta fields
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   const requiresManager = to.matched.some(record => record.meta.manager)
+  const isGuestRoute = to.matched.some(record => record.meta.guest)
 
-  if (!auth.isAuthenticated) {
-    try {
-      await auth.getUser()
-    } catch (error) {
-      return
+  // 1. Handle Protected Routes (requiresAuth)
+  if (requiresAuth) {
+    if (!auth.isAuthenticated) {
+      // User is not logged in, redirect to login
+      // NOTE: We rely on auth.isAuthenticated being correctly set by the getUser() call in main.ts
+      return { name: 'login' }
     }
 
+    // 2. Handle Role-Specific Access (requiresManager)
+    if (requiresManager) {
+      // Assuming role is stored as 'Manager' in auth.user.role
+      if (auth.user?.role !== 'Manager') {
+        // Logged in, but unauthorized role: redirect to dashboard
+        return { name: 'dashboard' } 
+      }
+    }
+    
+    // Authenticated, meets role requirements, allow navigation
+    return true
   }
 
-  if (requiresAuth && !auth.isAuthenticated) {
-    return { name: "login" }
+  // 3. Handle Guest-Only Routes (login, register)
+  if (isGuestRoute) {
+    if (auth.isAuthenticated) {
+      // Logged in user trying to access login/register: redirect to dashboard
+      return { name: 'dashboard' }
+    }
+    // Not logged in, allow access to guest route
+    return true
   }
 
-
-  if (to.name === "login" || to.name === "register" && auth.isAuthenticated) {
-    return { name: "dashboard" }
-  }
-
-
-  if (auth.user?.role !== "manager" && requiresManager) {
-    return { name: "dashboard" }
-  }
-
+  // 4. Default Case: Allow all public routes and routes that don't match the above checks
+  return true
 })
+
+// --- 3. After Each Hook (Title Update) ---
+router.afterEach((to, from) => {
+    // Check if the route has a title meta property
+    const finalTitle = to.meta.title ? `Coffeeshhh - ${to.meta.title}` : 'Coffeeshhh';
+    document.title = finalTitle;
+})
+
 
 export default router
