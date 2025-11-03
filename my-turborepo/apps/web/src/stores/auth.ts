@@ -2,7 +2,6 @@ import { useAxios } from "@/axios/useAxios"
 import { AxiosError } from "axios"
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import { useRouter } from "vue-router"
 
 type User = {
     id: number,
@@ -16,8 +15,6 @@ type User = {
 export const useAuthStore = defineStore("auth", () => {
     const isAuthenticated = ref<boolean>(false)
     const user = ref<User | null>(null)
-
-    const router = useRouter()
 
 
     const getUser = async () => {
@@ -51,7 +48,6 @@ export const useAuthStore = defineStore("auth", () => {
             })
             if (status !== 200) throw new Error("Authentication failed")
             await getUser()
-            router.replace({ path: "/" })
             return
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -72,7 +68,6 @@ export const useAuthStore = defineStore("auth", () => {
                 }
             })
             if (status !== 200) throw new Error("Registration failed")
-            router.replace({ name: "login" })
             return
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -88,7 +83,6 @@ export const useAuthStore = defineStore("auth", () => {
     const logout = async () => {
         try {
             await useAxios.post("/auth/logout", {})
-            router.replace({name:"login"})
         } catch (error) {
 
             if (error instanceof AxiosError) {

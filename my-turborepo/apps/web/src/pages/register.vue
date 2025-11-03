@@ -4,8 +4,9 @@ import Default from '@/layouts/default.vue';
 import type { FormSubmitEvent, AuthFormField } from "@nuxt/ui"
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
 
-
+const router = useRouter()
 const {register} = useAuthStore()
 const fields: AuthFormField[] = [
      {
@@ -77,6 +78,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     try {
         loading.value = true
         await register<typeof payload.data>(payload.data)
+        router.replace({name: "login"})
     } catch (error) {
         if(error instanceof Error){
              errorMessage.value = error.message
@@ -86,6 +88,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
 
     }finally{
         loading.value = false
+
     }
 }
 </script>

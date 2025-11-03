@@ -35,7 +35,7 @@ const items = computed<NavigationMenuItem[]>(() => [
 
 const authItem = computed<NavigationMenuItem[]>(() => [
     {
-        label: "Dashboard",
+        label: auth.user?.role !== "manager"? "Dashboard":"Manager",
         to: { name: "dashboard" },
         active: route.path.startsWith("/dashboard")
     }, {

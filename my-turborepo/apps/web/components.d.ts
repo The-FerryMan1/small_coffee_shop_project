@@ -11,6 +11,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CreateProductFormModal: typeof import('./src/components/modal/createProductFormModal.vue')['default']
     CTA: typeof import('./src/components/CTA.vue')['default']
     Features: typeof import('./src/components/Features.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']

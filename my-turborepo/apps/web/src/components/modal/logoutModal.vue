@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
+import { useRouter } from 'vue-router';
 const emit = defineEmits<{ close: [boolean] }>()
 const auth = useAuthStore()
 
+
+const router = useRouter()
 const closeButton = async () => {
  
     emit('close', false)
@@ -13,6 +16,7 @@ const closeButton = async () => {
 const logoutSubmit = async () => {
     try {
         await auth.logout()
+        router.replace({name: "login"})
     } catch (error) {
         throw error
     } finally {
